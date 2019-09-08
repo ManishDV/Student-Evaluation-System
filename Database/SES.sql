@@ -211,7 +211,8 @@ DROP TABLE IF EXISTS `student_gives_UT`;
 CREATE TABLE `student_gives_UT` (
   `roll_no` int(11) DEFAULT NULL,
   `sid` int(11) DEFAULT NULL,
-  `obtained_marks` int(11) DEFAULT NULL,
+  `ut1` int(11) DEFAULT NULL,
+  `ut2` int(11) DEFAULT NULL,
   KEY `roll_no` (`roll_no`),
   KEY `sid` (`sid`),
   CONSTRAINT `student_gives_UT_ibfk_1` FOREIGN KEY (`roll_no`) REFERENCES `student` (`roll_no`) ON DELETE CASCADE,
@@ -237,12 +238,12 @@ DROP TABLE IF EXISTS `subject`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `subject` (
   `sid` int(11) NOT NULL,
-  `name` varchar(30) DEFAULT NULL,
-  `abbrevation` varchar(5) DEFAULT NULL,
+  `name` varchar(30) NOT NULL,
+  `abbrevation` varchar(5) NOT NULL,
   PRIMARY KEY (`sid`),
+  UNIQUE KEY `name_2` (`name`),
   UNIQUE KEY `name` (`name`,`abbrevation`),
-  UNIQUE KEY `abbrevation` (`abbrevation`),
-  UNIQUE KEY `name_2` (`name`)
+  UNIQUE KEY `abbrevation` (`abbrevation`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -346,4 +347,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-09-01 11:46:19
+-- Dump completed on 2019-09-08  3:08:02
