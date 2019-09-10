@@ -27,7 +27,6 @@ CREATE TABLE `CTL` (
   `name` varchar(30) DEFAULT NULL,
   `abbrevation` varchar(5) DEFAULT NULL,
   `tot_marks` int(11) DEFAULT NULL,
-  `ut_date` date DEFAULT NULL,
   KEY `sid` (`sid`),
   KEY `name` (`name`),
   KEY `abbrevation` (`abbrevation`),
@@ -130,6 +129,30 @@ CREATE TABLE `assignment` (
 LOCK TABLES `assignment` WRITE;
 /*!40000 ALTER TABLE `assignment` DISABLE KEYS */;
 /*!40000 ALTER TABLE `assignment` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `attendance`
+--
+
+DROP TABLE IF EXISTS `attendance`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `attendance` (
+  `roll_no` int(11) DEFAULT NULL,
+  `attendance` smallint(6) DEFAULT NULL,
+  KEY `roll_no` (`roll_no`),
+  CONSTRAINT `attendance_ibfk_1` FOREIGN KEY (`roll_no`) REFERENCES `student` (`roll_no`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `attendance`
+--
+
+LOCK TABLES `attendance` WRITE;
+/*!40000 ALTER TABLE `attendance` DISABLE KEYS */;
+/*!40000 ALTER TABLE `attendance` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -380,4 +403,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-09-10  7:52:23
+-- Dump completed on 2019-09-10 10:27:36
