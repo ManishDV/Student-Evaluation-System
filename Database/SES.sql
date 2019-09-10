@@ -84,13 +84,16 @@ DROP TABLE IF EXISTS `LTL_has`;
 CREATE TABLE `LTL_has` (
   `roll_no` int(11) DEFAULT NULL,
   `sid` int(11) DEFAULT NULL,
+  `assign_id` int(11) DEFAULT NULL,
   `actual_performance_date` date DEFAULT NULL,
   `actual_submission_date` date DEFAULT NULL,
   `obtained_marks` int(11) DEFAULT NULL,
   KEY `roll_no` (`roll_no`),
   KEY `sid` (`sid`),
+  KEY `fk6` (`assign_id`),
   CONSTRAINT `LTL_has_ibfk_1` FOREIGN KEY (`roll_no`) REFERENCES `student` (`roll_no`) ON DELETE CASCADE,
-  CONSTRAINT `LTL_has_ibfk_2` FOREIGN KEY (`sid`) REFERENCES `LTL` (`sid`) ON DELETE CASCADE
+  CONSTRAINT `LTL_has_ibfk_2` FOREIGN KEY (`sid`) REFERENCES `LTL` (`sid`) ON DELETE CASCADE,
+  CONSTRAINT `fk6` FOREIGN KEY (`assign_id`) REFERENCES `assignment` (`assign_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -403,4 +406,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-09-10 10:27:36
+-- Dump completed on 2019-09-10 23:37:00
