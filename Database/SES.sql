@@ -27,7 +27,6 @@ CREATE TABLE `CTL` (
   `name` varchar(30) DEFAULT NULL,
   `abbrevation` varchar(5) DEFAULT NULL,
   `tot_marks` int(11) DEFAULT NULL,
-  `ut_date` date DEFAULT NULL,
   KEY `sid` (`sid`),
   KEY `name` (`name`),
   KEY `abbrevation` (`abbrevation`),
@@ -85,13 +84,16 @@ DROP TABLE IF EXISTS `LTL_has`;
 CREATE TABLE `LTL_has` (
   `roll_no` int(11) DEFAULT NULL,
   `sid` int(11) DEFAULT NULL,
+  `assign_id` int(11) DEFAULT NULL,
   `actual_performance_date` date DEFAULT NULL,
   `actual_submission_date` date DEFAULT NULL,
   `obtained_marks` int(11) DEFAULT NULL,
   KEY `roll_no` (`roll_no`),
   KEY `sid` (`sid`),
+  KEY `fk6` (`assign_id`),
   CONSTRAINT `LTL_has_ibfk_1` FOREIGN KEY (`roll_no`) REFERENCES `student` (`roll_no`) ON DELETE CASCADE,
-  CONSTRAINT `LTL_has_ibfk_2` FOREIGN KEY (`sid`) REFERENCES `LTL` (`sid`) ON DELETE CASCADE
+  CONSTRAINT `LTL_has_ibfk_2` FOREIGN KEY (`sid`) REFERENCES `LTL` (`sid`) ON DELETE CASCADE,
+  CONSTRAINT `fk6` FOREIGN KEY (`assign_id`) REFERENCES `assignment` (`assign_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -113,10 +115,13 @@ DROP TABLE IF EXISTS `assignment`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `assignment` (
   `assign_id` int(11) NOT NULL,
+  `sid` int(11) DEFAULT NULL,
   `scheduled_performance_date` date DEFAULT NULL,
   `scheduled_performace_date` date DEFAULT NULL,
   `tot_marks` int(11) DEFAULT NULL,
-  PRIMARY KEY (`assign_id`)
+  PRIMARY KEY (`assign_id`),
+  KEY `fk3` (`sid`),
+  CONSTRAINT `fk3` FOREIGN KEY (`sid`) REFERENCES `LTL` (`sid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -130,6 +135,30 @@ LOCK TABLES `assignment` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `attendance`
+--
+
+DROP TABLE IF EXISTS `attendance`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `attendance` (
+  `roll_no` int(11) DEFAULT NULL,
+  `attendance` smallint(6) DEFAULT NULL,
+  KEY `roll_no` (`roll_no`),
+  CONSTRAINT `attendance_ibfk_1` FOREIGN KEY (`roll_no`) REFERENCES `student` (`roll_no`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `attendance`
+--
+
+LOCK TABLES `attendance` WRITE;
+/*!40000 ALTER TABLE `attendance` DISABLE KEYS */;
+/*!40000 ALTER TABLE `attendance` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `batch`
 --
 
@@ -138,6 +167,7 @@ DROP TABLE IF EXISTS `batch`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `batch` (
   `bid` int(11) NOT NULL,
+  `strength` smallint(6) DEFAULT NULL,
   PRIMARY KEY (`bid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -160,6 +190,7 @@ DROP TABLE IF EXISTS `class`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `class` (
   `cid` int(11) NOT NULL,
+  `strength` smallint(6) DEFAULT NULL,
   PRIMARY KEY (`cid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -227,6 +258,34 @@ CREATE TABLE `student_gives_UT` (
 LOCK TABLES `student_gives_UT` WRITE;
 /*!40000 ALTER TABLE `student_gives_UT` DISABLE KEYS */;
 /*!40000 ALTER TABLE `student_gives_UT` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `student_performs_assignments`
+--
+
+DROP TABLE IF EXISTS `student_performs_assignments`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `student_performs_assignments` (
+  `assign_id` int(11) DEFAULT NULL,
+  `roll_no` int(11) DEFAULT NULL,
+  `actual_performance_date` date DEFAULT NULL,
+  `actual_submission_date` date DEFAULT NULL,
+  KEY `assign_id` (`assign_id`),
+  KEY `fk5` (`roll_no`),
+  CONSTRAINT `fk5` FOREIGN KEY (`roll_no`) REFERENCES `student` (`roll_no`),
+  CONSTRAINT `student_performs_assignments_ibfk_1` FOREIGN KEY (`assign_id`) REFERENCES `assignment` (`assign_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `student_performs_assignments`
+--
+
+LOCK TABLES `student_performs_assignments` WRITE;
+/*!40000 ALTER TABLE `student_performs_assignments` DISABLE KEYS */;
+/*!40000 ALTER TABLE `student_performs_assignments` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -347,4 +406,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-09-08  3:08:02
+-- Dump completed on 2019-09-10 23:37:00
