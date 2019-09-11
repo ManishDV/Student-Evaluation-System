@@ -23,10 +23,10 @@ DROP TABLE IF EXISTS `CTL`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `CTL` (
-  `sid` int(11) DEFAULT NULL,
-  `name` varchar(30) DEFAULT NULL,
-  `abbrevation` varchar(5) DEFAULT NULL,
-  `tot_marks` int(11) DEFAULT NULL,
+  `sid` int(11) NOT NULL,
+  `name` varchar(30) NOT NULL,
+  `abbrevation` varchar(5) NOT NULL,
+  `tot_marks` int(11) NOT NULL,
   KEY `sid` (`sid`),
   KEY `name` (`name`),
   KEY `abbrevation` (`abbrevation`),
@@ -53,9 +53,9 @@ DROP TABLE IF EXISTS `LTL`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `LTL` (
-  `sid` int(11) DEFAULT NULL,
-  `name` varchar(30) DEFAULT NULL,
-  `abbrevation` varchar(5) DEFAULT NULL,
+  `sid` int(11) NOT NULL,
+  `name` varchar(30) NOT NULL,
+  `abbrevation` varchar(5) NOT NULL,
   KEY `sid` (`sid`),
   KEY `name` (`name`),
   KEY `abbrevation` (`abbrevation`),
@@ -82,12 +82,12 @@ DROP TABLE IF EXISTS `LTL_has`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `LTL_has` (
-  `roll_no` int(11) DEFAULT NULL,
-  `sid` int(11) DEFAULT NULL,
-  `assign_id` int(11) DEFAULT NULL,
-  `actual_performance_date` date DEFAULT NULL,
-  `actual_submission_date` date DEFAULT NULL,
-  `obtained_marks` int(11) DEFAULT NULL,
+  `roll_no` int(11) NOT NULL,
+  `sid` int(11) NOT NULL,
+  `assign_id` int(11) NOT NULL,
+  `actual_performance_date` date NOT NULL,
+  `actual_submission_date` date NOT NULL,
+  `obtained_marks` int(11) NOT NULL,
   KEY `roll_no` (`roll_no`),
   KEY `sid` (`sid`),
   KEY `fk6` (`assign_id`),
@@ -119,6 +119,10 @@ CREATE TABLE `assignment` (
   `scheduled_performance_date` date DEFAULT NULL,
   `scheduled_submission_date` date NOT NULL,
   `tot_marks` int(11) DEFAULT NULL,
+  `sid` int(11) NOT NULL,
+  `scheduled_performance_date` date NOT NULL,
+  `scheduled_submission_date` date NOT NULL,
+  `tot_marks` int(11) NOT NULL,
   PRIMARY KEY (`assign_id`),
   KEY `fk3` (`sid`),
   CONSTRAINT `fk3` FOREIGN KEY (`sid`) REFERENCES `LTL` (`sid`)
@@ -126,6 +130,7 @@ CREATE TABLE `assignment` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+
 -- Dumping data for table `assignment`
 --
 
@@ -142,8 +147,8 @@ DROP TABLE IF EXISTS `attendance`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `attendance` (
-  `roll_no` int(11) DEFAULT NULL,
-  `attendance` smallint(6) DEFAULT NULL,
+  `roll_no` int(11) NOT NULL,
+  `attendance` smallint(6) NOT NULL,
   KEY `roll_no` (`roll_no`),
   CONSTRAINT `attendance_ibfk_1` FOREIGN KEY (`roll_no`) REFERENCES `student` (`roll_no`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -167,7 +172,7 @@ DROP TABLE IF EXISTS `batch`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `batch` (
   `bid` int(11) NOT NULL,
-  `strength` smallint(6) DEFAULT NULL,
+  `strength` smallint(6) NOT NULL,
   PRIMARY KEY (`bid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -190,7 +195,7 @@ DROP TABLE IF EXISTS `class`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `class` (
   `cid` int(11) NOT NULL,
-  `strength` smallint(6) DEFAULT NULL,
+  `strength` smallint(6) NOT NULL,
   PRIMARY KEY (`cid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -213,8 +218,8 @@ DROP TABLE IF EXISTS `student`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `student` (
   `roll_no` int(11) NOT NULL,
-  `cid` int(11) DEFAULT NULL,
-  `bid` int(11) DEFAULT NULL,
+  `cid` int(11) NOT NULL,
+  `bid` int(11) NOT NULL,
   PRIMARY KEY (`roll_no`),
   KEY `cid` (`cid`),
   KEY `bid` (`bid`),
@@ -240,10 +245,10 @@ DROP TABLE IF EXISTS `student_gives_UT`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `student_gives_UT` (
-  `roll_no` int(11) DEFAULT NULL,
-  `sid` int(11) DEFAULT NULL,
-  `ut1` int(11) DEFAULT NULL,
-  `ut2` int(11) DEFAULT NULL,
+  `roll_no` int(11) NOT NULL,
+  `sid` int(11) NOT NULL,
+  `ut1` int(11) NOT NULL,
+  `ut2` int(11) NOT NULL,
   KEY `roll_no` (`roll_no`),
   KEY `sid` (`sid`),
   CONSTRAINT `student_gives_UT_ibfk_1` FOREIGN KEY (`roll_no`) REFERENCES `student` (`roll_no`) ON DELETE CASCADE,
@@ -268,10 +273,10 @@ DROP TABLE IF EXISTS `student_performs_assignments`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `student_performs_assignments` (
-  `assign_id` int(11) DEFAULT NULL,
-  `roll_no` int(11) DEFAULT NULL,
-  `actual_performance_date` date DEFAULT NULL,
-  `actual_submission_date` date DEFAULT NULL,
+  `assign_id` int(11) NOT NULL,
+  `roll_no` int(11) NOT NULL,
+  `actual_performance_date` date NOT NULL,
+  `actual_submission_date` date NOT NULL,
   KEY `assign_id` (`assign_id`),
   KEY `fk5` (`roll_no`),
   CONSTRAINT `fk5` FOREIGN KEY (`roll_no`) REFERENCES `student` (`roll_no`),
@@ -324,8 +329,8 @@ DROP TABLE IF EXISTS `teacher`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `teacher` (
   `tid` int(11) NOT NULL,
-  `tname` varchar(30) DEFAULT NULL,
-  `abbrevation` varchar(5) DEFAULT NULL,
+  `tname` varchar(30) NOT NULL,
+  `abbrevation` varchar(5) NOT NULL,
   PRIMARY KEY (`tid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -347,9 +352,9 @@ DROP TABLE IF EXISTS `teacher_teaches_batch`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `teacher_teaches_batch` (
-  `bid` int(11) DEFAULT NULL,
-  `tid` int(11) DEFAULT NULL,
-  `sid` int(11) DEFAULT NULL,
+  `bid` int(11) NOT NULL,
+  `tid` int(11) NOT NULL,
+  `sid` int(11) NOT NULL,
   KEY `bid` (`bid`),
   KEY `tid` (`tid`),
   KEY `sid` (`sid`),
@@ -376,9 +381,9 @@ DROP TABLE IF EXISTS `teacher_teaches_class`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `teacher_teaches_class` (
-  `cid` int(11) DEFAULT NULL,
-  `tid` int(11) DEFAULT NULL,
-  `sid` int(11) DEFAULT NULL,
+  `cid` int(11) NOT NULL,
+  `tid` int(11) NOT NULL,
+  `sid` int(11) NOT NULL,
   KEY `cid` (`cid`),
   KEY `tid` (`tid`),
   KEY `sid` (`sid`),
@@ -406,4 +411,5 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-09-11 22:34:47
+-- Dump completed on 2019-09-11 22:59:17
+
