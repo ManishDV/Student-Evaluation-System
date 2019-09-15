@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Sep 13, 2019 at 07:47 PM
+-- Generation Time: Sep 15, 2019 at 03:49 PM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.1.32
 
@@ -46,6 +46,18 @@ CREATE TABLE `attendance` (
   `roll_no` int(11) NOT NULL,
   `attendance` smallint(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `authenticate`
+--
+
+CREATE TABLE `authenticate` (
+  `tid` varchar(20) CHARACTER SET utf8mb4 NOT NULL,
+  `uname` int(30) NOT NULL,
+  `password` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -119,28 +131,12 @@ CREATE TABLE `LTL` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `LTL_has`
---
-
-CREATE TABLE `LTL_has` (
-  `roll_no` int(11) NOT NULL,
-  `sid` int(11) NOT NULL,
-  `assign_id` int(11) NOT NULL,
-  `actual_performance_date` date NOT NULL,
-  `actual_submission_date` date NOT NULL,
-  `obtained_marks` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `student`
 --
 
 CREATE TABLE `student` (
   `roll_no` int(11) NOT NULL,
-  `cid` varchar(20) NOT NULL,
-  `bid` int(11) NOT NULL
+  `student_name` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -159,14 +155,15 @@ CREATE TABLE `student_gives_UT` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `student_performs_assignments`
+-- Table structure for table `student_performs_assignment`
 --
 
-CREATE TABLE `student_performs_assignments` (
-  `assign_id` int(11) NOT NULL,
+CREATE TABLE `student_performs_assignment` (
   `roll_no` int(11) NOT NULL,
+  `assign_id` int(11) NOT NULL,
   `actual_performance_date` date NOT NULL,
-  `actual_submission_date` date NOT NULL
+  `actual_submission_date` date NOT NULL,
+  `obtained_marks` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -235,6 +232,12 @@ ALTER TABLE `attendance`
   ADD KEY `roll_no` (`roll_no`);
 
 --
+-- Indexes for table `authenticate`
+--
+ALTER TABLE `authenticate`
+  ADD KEY `authenticate_fk` (`tid`);
+
+--
 -- Indexes for table `batch`
 --
 ALTER TABLE `batch`
@@ -277,20 +280,10 @@ ALTER TABLE `LTL`
   ADD KEY `abbrevation` (`abbrevation`);
 
 --
--- Indexes for table `LTL_has`
---
-ALTER TABLE `LTL_has`
-  ADD KEY `roll_no` (`roll_no`),
-  ADD KEY `sid` (`sid`),
-  ADD KEY `fk6` (`assign_id`);
-
---
 -- Indexes for table `student`
 --
 ALTER TABLE `student`
-  ADD PRIMARY KEY (`roll_no`),
-  ADD KEY `cid` (`cid`),
-  ADD KEY `bid` (`bid`);
+  ADD PRIMARY KEY (`roll_no`);
 
 --
 -- Indexes for table `student_gives_UT`
@@ -300,11 +293,11 @@ ALTER TABLE `student_gives_UT`
   ADD KEY `sid` (`sid`);
 
 --
--- Indexes for table `student_performs_assignments`
+-- Indexes for table `student_performs_assignment`
 --
-ALTER TABLE `student_performs_assignments`
-  ADD KEY `assign_id` (`assign_id`),
-  ADD KEY `fk5` (`roll_no`);
+ALTER TABLE `student_performs_assignment`
+  ADD KEY `roll_no` (`roll_no`),
+  ADD KEY `fk6` (`assign_id`);
 
 --
 -- Indexes for table `subject`
@@ -354,6 +347,12 @@ ALTER TABLE `attendance`
   ADD CONSTRAINT `attendance_ibfk_1` FOREIGN KEY (`roll_no`) REFERENCES `student` (`roll_no`);
 
 --
+-- Constraints for table `authenticate`
+--
+ALTER TABLE `authenticate`
+  ADD CONSTRAINT `authenticate_fk` FOREIGN KEY (`tid`) REFERENCES `teacher` (`tid`) ON DELETE CASCADE;
+
+--
 -- Constraints for table `batch_has_students`
 --
 ALTER TABLE `batch_has_students`
@@ -384,20 +383,6 @@ ALTER TABLE `LTL`
   ADD CONSTRAINT `LTL_ibfk_3` FOREIGN KEY (`abbrevation`) REFERENCES `subject` (`abbrevation`) ON DELETE CASCADE;
 
 --
--- Constraints for table `LTL_has`
---
-ALTER TABLE `LTL_has`
-  ADD CONSTRAINT `LTL_has_ibfk_1` FOREIGN KEY (`roll_no`) REFERENCES `student` (`roll_no`) ON DELETE CASCADE,
-  ADD CONSTRAINT `LTL_has_ibfk_2` FOREIGN KEY (`sid`) REFERENCES `LTL` (`sid`) ON DELETE CASCADE,
-  ADD CONSTRAINT `fk6` FOREIGN KEY (`assign_id`) REFERENCES `assignment` (`assign_id`);
-
---
--- Constraints for table `student`
---
-ALTER TABLE `student`
-  ADD CONSTRAINT `student_ibfk_1` FOREIGN KEY (`cid`) REFERENCES `class` (`cid`) ON DELETE CASCADE;
-
---
 -- Constraints for table `student_gives_UT`
 --
 ALTER TABLE `student_gives_UT`
@@ -405,11 +390,11 @@ ALTER TABLE `student_gives_UT`
   ADD CONSTRAINT `student_gives_UT_ibfk_2` FOREIGN KEY (`sid`) REFERENCES `CTL` (`sid`) ON DELETE CASCADE;
 
 --
--- Constraints for table `student_performs_assignments`
+-- Constraints for table `student_performs_assignment`
 --
-ALTER TABLE `student_performs_assignments`
-  ADD CONSTRAINT `fk5` FOREIGN KEY (`roll_no`) REFERENCES `student` (`roll_no`),
-  ADD CONSTRAINT `student_performs_assignments_ibfk_1` FOREIGN KEY (`assign_id`) REFERENCES `assignment` (`assign_id`);
+ALTER TABLE `student_performs_assignment`
+  ADD CONSTRAINT `fk6` FOREIGN KEY (`assign_id`) REFERENCES `assignment` (`assign_id`),
+  ADD CONSTRAINT `student_performs_assignment_ibfk_1` FOREIGN KEY (`roll_no`) REFERENCES `student` (`roll_no`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `teacher_teaches_batch`
