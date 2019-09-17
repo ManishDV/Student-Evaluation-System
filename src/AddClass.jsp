@@ -4,24 +4,13 @@
 <%@page import="javax.sql.*"%>
 <%
 	String cid=request.getParameter("classid");
-	String end = request.getParameter("end");
-	String start = request.getParameter("start");
-	int cal_strength=0;
-	if(cid.equals("te9")||cid.equals("te10")||cid.equals("te11"))
-	{
-		cal_strength = (Integer.parseInt(end)-Integer.parseInt(start)+1);
-	}
-	else
-	{
-		cal_strength=0;
-	} 
-	
+	String strength=request.getParameter("strength");
 	try{
 		Class.forName("org.mariadb.jdbc.Driver");
 		Connection con = DriverManager.getConnection("jdbc:mariadb://localhost:3306/Demo", "Sahil", "Sahil@123");
-		out.println("Connected");
+		//out.println("Connected");
 		Statement st=con.createStatement();
-		int i=st.executeUpdate("insert into class values('"+cid+"','"+cal_strength+"')");
+		int i=st.executeUpdate("insert into class values('"+cid+"','"+strength+"')");
 		
 		con.close();
 		st.close();
