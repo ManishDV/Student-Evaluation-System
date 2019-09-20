@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Sep 15, 2019 at 03:49 PM
+-- Generation Time: Sep 20, 2019 at 04:29 PM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.1.32
 
@@ -112,8 +112,7 @@ CREATE TABLE `class_has_students` (
 CREATE TABLE `CTL` (
   `sid` int(11) NOT NULL,
   `name` varchar(30) NOT NULL,
-  `abbrevation` varchar(5) NOT NULL,
-  `tot_marks` int(11) NOT NULL
+  `abbrevation` varchar(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -174,6 +173,8 @@ CREATE TABLE `student_performs_assignment` (
 
 CREATE TABLE `subject` (
   `sid` int(11) NOT NULL,
+  `year` varchar(10) NOT NULL,
+  `semester` int(11) NOT NULL,
   `name` varchar(30) NOT NULL,
   `abbrevation` varchar(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
