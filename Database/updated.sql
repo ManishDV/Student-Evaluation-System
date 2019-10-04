@@ -29,8 +29,8 @@ CREATE TABLE `assignment` (
   `scheduled_submission_date` date DEFAULT NULL,
   PRIMARY KEY (`assign_id`),
   KEY `fk3` (`sid`),
-  CONSTRAINT `fk3` FOREIGN KEY (`sid`) REFERENCES `LTL` (`sid`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  CONSTRAINT `fk3` FOREIGN KEY (`sid`) REFERENCES `subject` (`sid`)
+);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
