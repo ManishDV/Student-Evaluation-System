@@ -450,6 +450,30 @@ LOCK TABLES `teacher_teaches_class` WRITE;
 INSERT INTO `teacher_teaches_class` VALUES ('TE-11','emp01',1),('TE-11','emp01',7);
 /*!40000 ALTER TABLE `teacher_teaches_class` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `termwork`
+--
+
+DROP TABLE IF EXISTS `termwork`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `termwork` (
+  `roll_no` int(11) DEFAULT NULL,
+  `termwork` int(11) DEFAULT NULL,
+  KEY `roll_no` (`roll_no`),
+  CONSTRAINT `termwork_ibfk_1` FOREIGN KEY (`roll_no`) REFERENCES `student` (`roll_no`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `termwork`
+--
+
+LOCK TABLES `termwork` WRITE;
+/*!40000 ALTER TABLE `termwork` DISABLE KEYS */;
+/*!40000 ALTER TABLE `termwork` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -460,4 +484,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-10-05  0:29:12
+-- Dump completed on 2019-10-05 13:41:16
