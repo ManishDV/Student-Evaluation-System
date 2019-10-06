@@ -164,7 +164,7 @@ CREATE TABLE `class` (
 
 LOCK TABLES `class` WRITE;
 /*!40000 ALTER TABLE `class` DISABLE KEYS */;
-INSERT INTO `class` VALUES ('TE-09',74),('TE-10',74),('TE-11',74);
+INSERT INTO `class` VALUES ('BE-10',77),('BE-11',68),('TE-09',74),('TE-10',74),('TE-11',74);
 /*!40000 ALTER TABLE `class` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -361,7 +361,7 @@ CREATE TABLE `subject` (
 
 LOCK TABLES `subject` WRITE;
 /*!40000 ALTER TABLE `subject` DISABLE KEYS */;
-INSERT INTO `subject` VALUES (1,'TE',1,'Theory of Computation','TOC',1),(2,'TE',1,'Human Computer Interaction','HCI',1),(3,'TE',1,'Operating System','OS',1),(4,'TE',1,'Database Management System','DBMS',1),(5,'TE',1,'Software Engineering And Project Management','SEPM',1),(6,'TE',1,'Software Lab - I','SL-I',0),(7,'TE',1,'Software Lab - II','SL-II',0),(8,'TE',1,'Software Lab - III','SL-III',0);
+INSERT INTO `subject` VALUES (1,'TE',1,'Theory of Computation','TOC',1),(2,'TE',1,'Human Computer Interaction','HCI',1),(3,'TE',1,'Operating System','OS',1),(4,'TE',1,'Database Management System','DBMS',1),(5,'TE',1,'Software Engineering And Project Management','SEPM',1),(6,'TE',1,'Software Lab - I','SL-I',0),(7,'TE',1,'Software Lab - II','SL-II',0),(8,'TE',1,'Software Lab - III','SL-III',0),(546,'BE',1,'Mock_Subject','Mock_abb',1);
 /*!40000 ALTER TABLE `subject` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -460,8 +460,12 @@ DROP TABLE IF EXISTS `termwork`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `termwork` (
   `roll_no` int(11) DEFAULT NULL,
-  `termwork` int(11) DEFAULT NULL,
+  `sid` int(11) DEFAULT NULL,
+  `out_of_25` int(11) NOT NULL DEFAULT 0,
+  `out_of_50` int(11) NOT NULL DEFAULT 0,
   KEY `roll_no` (`roll_no`),
+  KEY `sid_fk` (`sid`),
+  CONSTRAINT `sid_fk` FOREIGN KEY (`sid`) REFERENCES `subject` (`sid`),
   CONSTRAINT `termwork_ibfk_1` FOREIGN KEY (`roll_no`) REFERENCES `student` (`roll_no`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -484,4 +488,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-10-05 13:41:16
+-- Dump completed on 2019-10-06  7:58:10
