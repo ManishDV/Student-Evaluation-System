@@ -7,19 +7,15 @@
 	String strength=request.getParameter("strength");
 	try{
 		Class.forName("org.mariadb.jdbc.Driver");
-		Connection con = DriverManager.getConnection("jdbc:mariadb://localhost:3306/Demo", "Sahil", "Sahil@123");
+		Connection con = DriverManager.getConnection("jdbc:mariadb://localhost:3306/SES", "Manish", "Manny@123");
 		//out.println("Connected");
 		Statement st=con.createStatement();
-		int i=st.executeUpdate("insert into class values('"+cid+"','"+strength+"')");
-		
+		int i=st.executeUpdate("insert into class values('"+cid+"','"+strength+"')");	
 		con.close();
 		st.close();
 	}
 	catch(Exception e){
 		out.println(e.getMessage());
 	}
-	finally
-	{
-		out.println("NOTE: Class added successfully!!");
-	}
+	out.println("Class added Succesfully");
 %>
