@@ -23,14 +23,15 @@ DROP TABLE IF EXISTS `assignment`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `assignment` (
-  `assign_id` int(11) NOT NULL,
+  `assign_id` int(11) NOT NULL AUTO_INCREMENT,
+  `assign_name` varchar(1000) DEFAULT NULL,
   `sid` int(11) NOT NULL,
-  `scheduled_performance_date` date NOT NULL,
+  `scheduled_performance_date` date DEFAULT NULL,
   `scheduled_submission_date` date DEFAULT NULL,
   PRIMARY KEY (`assign_id`),
   KEY `fk3` (`sid`),
-  CONSTRAINT `fk3` FOREIGN KEY (`sid`) REFERENCES `subject` (`sid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  CONSTRAINT `fk3` FOREIGN KEY (`sid`) REFERENCES `subject` (`sid`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -53,7 +54,7 @@ CREATE TABLE `attendance` (
   `roll_no` int(11) NOT NULL,
   `attendance` smallint(6) NOT NULL DEFAULT 0,
   KEY `roll_no` (`roll_no`),
-  CONSTRAINT `attendance_ibfk_1` FOREIGN KEY (`roll_no`) REFERENCES `student` (`roll_no`)
+  CONSTRAINT `attendance_ibfk_1` FOREIGN KEY (`roll_no`) REFERENCES `student` (`roll_no`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -63,7 +64,6 @@ CREATE TABLE `attendance` (
 
 LOCK TABLES `attendance` WRITE;
 /*!40000 ALTER TABLE `attendance` DISABLE KEYS */;
-INSERT INTO `attendance` VALUES (33308,88),(33319,88),(33336,88),(33364,88),(33367,88),(33370,88);
 /*!40000 ALTER TABLE `attendance` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -89,7 +89,6 @@ CREATE TABLE `authenticate` (
 
 LOCK TABLES `authenticate` WRITE;
 /*!40000 ALTER TABLE `authenticate` DISABLE KEYS */;
-INSERT INTO `authenticate` VALUES ('emp01','Manish','Manny@123');
 /*!40000 ALTER TABLE `authenticate` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -113,7 +112,6 @@ CREATE TABLE `batch` (
 
 LOCK TABLES `batch` WRITE;
 /*!40000 ALTER TABLE `batch` DISABLE KEYS */;
-INSERT INTO `batch` VALUES ('K-11',19),('L-11',19),('M-11',19),('N-11',19);
 /*!40000 ALTER TABLE `batch` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -140,7 +138,6 @@ CREATE TABLE `batch_has_students` (
 
 LOCK TABLES `batch_has_students` WRITE;
 /*!40000 ALTER TABLE `batch_has_students` DISABLE KEYS */;
-INSERT INTO `batch_has_students` VALUES (33308,'N-11'),(33319,'N-11'),(33336,'N-11'),(33367,'N-11'),(33364,'N-11'),(33370,'N-11'),(33308,'N-11'),(33319,'N-11'),(33336,'N-11'),(33364,'N-11'),(33367,'N-11'),(33370,'N-11');
 /*!40000 ALTER TABLE `batch_has_students` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -164,7 +161,6 @@ CREATE TABLE `class` (
 
 LOCK TABLES `class` WRITE;
 /*!40000 ALTER TABLE `class` DISABLE KEYS */;
-INSERT INTO `class` VALUES ('BE-10',77),('BE-11',68),('TE-09',74),('TE-10',74),('TE-11',74);
 /*!40000 ALTER TABLE `class` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -180,8 +176,8 @@ CREATE TABLE `class_coordinator` (
   `cid` varchar(20) NOT NULL,
   KEY `cc_teacher` (`tid`),
   KEY `cc_class` (`cid`),
-  CONSTRAINT `cc_class` FOREIGN KEY (`cid`) REFERENCES `class` (`cid`),
-  CONSTRAINT `cc_teacher` FOREIGN KEY (`tid`) REFERENCES `teacher` (`tid`)
+  CONSTRAINT `cc_class` FOREIGN KEY (`cid`) REFERENCES `class` (`cid`) ON DELETE CASCADE,
+  CONSTRAINT `cc_teacher` FOREIGN KEY (`tid`) REFERENCES `teacher` (`tid`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -206,8 +202,8 @@ CREATE TABLE `class_has_batch` (
   `bid` varchar(20) DEFAULT NULL,
   KEY `fk_cb` (`cid`),
   KEY `fk_cbb` (`bid`),
-  CONSTRAINT `fk_cb` FOREIGN KEY (`cid`) REFERENCES `class` (`cid`),
-  CONSTRAINT `fk_cbb` FOREIGN KEY (`bid`) REFERENCES `batch` (`bid`)
+  CONSTRAINT `fk_cb` FOREIGN KEY (`cid`) REFERENCES `class` (`cid`) ON DELETE CASCADE,
+  CONSTRAINT `fk_cbb` FOREIGN KEY (`bid`) REFERENCES `batch` (`bid`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -217,7 +213,6 @@ CREATE TABLE `class_has_batch` (
 
 LOCK TABLES `class_has_batch` WRITE;
 /*!40000 ALTER TABLE `class_has_batch` DISABLE KEYS */;
-INSERT INTO `class_has_batch` VALUES ('TE-11','K-11'),('TE-11','L-11'),('TE-11','M-11'),('TE-11','N-11');
 /*!40000 ALTER TABLE `class_has_batch` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -244,7 +239,6 @@ CREATE TABLE `class_has_students` (
 
 LOCK TABLES `class_has_students` WRITE;
 /*!40000 ALTER TABLE `class_has_students` DISABLE KEYS */;
-INSERT INTO `class_has_students` VALUES (33308,'TE-11'),(33319,'TE-11'),(33336,'TE-11'),(33364,'TE-11'),(33367,'TE-11'),(33370,'TE-11');
 /*!40000 ALTER TABLE `class_has_students` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -268,7 +262,6 @@ CREATE TABLE `student` (
 
 LOCK TABLES `student` WRITE;
 /*!40000 ALTER TABLE `student` DISABLE KEYS */;
-INSERT INTO `student` VALUES (33308,'Ayan Gadpal'),(33319,'Devashish Prasad'),(33336,'Kshitij Kapadni'),(33364,'Sahil Shaikh'),(33367,'Tanvi Madamwar'),(33370,'Manish Visave');
 /*!40000 ALTER TABLE `student` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -297,7 +290,6 @@ CREATE TABLE `student_gives_UT` (
 
 LOCK TABLES `student_gives_UT` WRITE;
 /*!40000 ALTER TABLE `student_gives_UT` DISABLE KEYS */;
-INSERT INTO `student_gives_UT` VALUES (33308,1,21,22),(33319,1,21,22),(33336,1,21,22),(33364,1,2,22),(33367,1,1,22),(33370,1,1,22);
 /*!40000 ALTER TABLE `student_gives_UT` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -318,7 +310,7 @@ CREATE TABLE `student_performs_assignment` (
   `total` int(11) NOT NULL DEFAULT 0,
   KEY `roll_no` (`roll_no`),
   KEY `fk6` (`assign_id`),
-  CONSTRAINT `fk6` FOREIGN KEY (`assign_id`) REFERENCES `assignment` (`assign_id`),
+  CONSTRAINT `fk6` FOREIGN KEY (`assign_id`) REFERENCES `assignment` (`assign_id`) ON DELETE CASCADE,
   CONSTRAINT `student_performs_assignment_ibfk_1` FOREIGN KEY (`roll_no`) REFERENCES `student` (`roll_no`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -361,7 +353,6 @@ CREATE TABLE `subject` (
 
 LOCK TABLES `subject` WRITE;
 /*!40000 ALTER TABLE `subject` DISABLE KEYS */;
-INSERT INTO `subject` VALUES (1,'TE',1,'Theory of Computation','TOC',1),(2,'TE',1,'Human Computer Interaction','HCI',1),(3,'TE',1,'Operating System','OS',1),(4,'TE',1,'Database Management System','DBMS',1),(5,'TE',1,'Software Engineering And Project Management','SEPM',1),(6,'TE',1,'Software Lab - I','SL-I',0),(7,'TE',1,'Software Lab - II','SL-II',0),(8,'TE',1,'Software Lab - III','SL-III',0),(546,'BE',1,'Mock_Subject','Mock_abb',1);
 /*!40000 ALTER TABLE `subject` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -375,8 +366,8 @@ DROP TABLE IF EXISTS `teacher`;
 CREATE TABLE `teacher` (
   `tid` varchar(20) NOT NULL,
   `tname` varchar(30) NOT NULL,
-  `abbrevation` varchar(5) NOT NULL,
-  `email` varchar(50) NOT NULL,
+  `abbrevation` varchar(5) DEFAULT 'emp',
+  `email` varchar(50) DEFAULT 'gmail',
   PRIMARY KEY (`tid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -387,7 +378,6 @@ CREATE TABLE `teacher` (
 
 LOCK TABLES `teacher` WRITE;
 /*!40000 ALTER TABLE `teacher` DISABLE KEYS */;
-INSERT INTO `teacher` VALUES ('emp01','Manish Visave','MV','manishvisave149@gmail.com');
 /*!40000 ALTER TABLE `teacher` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -405,7 +395,7 @@ CREATE TABLE `teacher_teaches_batch` (
   KEY `bid` (`bid`),
   KEY `tid` (`tid`),
   KEY `sid` (`sid`),
-  CONSTRAINT `teacher_teaches_batch_ibfk_1` FOREIGN KEY (`bid`) REFERENCES `batch` (`bid`),
+  CONSTRAINT `teacher_teaches_batch_ibfk_1` FOREIGN KEY (`bid`) REFERENCES `batch` (`bid`) ON DELETE CASCADE,
   CONSTRAINT `teacher_teaches_batch_ibfk_2` FOREIGN KEY (`tid`) REFERENCES `teacher` (`tid`) ON DELETE CASCADE,
   CONSTRAINT `teacher_teaches_batch_ibfk_3` FOREIGN KEY (`sid`) REFERENCES `subject` (`sid`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -417,7 +407,6 @@ CREATE TABLE `teacher_teaches_batch` (
 
 LOCK TABLES `teacher_teaches_batch` WRITE;
 /*!40000 ALTER TABLE `teacher_teaches_batch` DISABLE KEYS */;
-INSERT INTO `teacher_teaches_batch` VALUES ('N-11','emp01',7);
 /*!40000 ALTER TABLE `teacher_teaches_batch` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -447,7 +436,6 @@ CREATE TABLE `teacher_teaches_class` (
 
 LOCK TABLES `teacher_teaches_class` WRITE;
 /*!40000 ALTER TABLE `teacher_teaches_class` DISABLE KEYS */;
-INSERT INTO `teacher_teaches_class` VALUES ('TE-11','emp01',1),('TE-11','emp01',7);
 /*!40000 ALTER TABLE `teacher_teaches_class` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -465,8 +453,8 @@ CREATE TABLE `termwork` (
   `out_of_50` int(11) NOT NULL DEFAULT 0,
   KEY `roll_no` (`roll_no`),
   KEY `sid_fk` (`sid`),
-  CONSTRAINT `sid_fk` FOREIGN KEY (`sid`) REFERENCES `subject` (`sid`),
-  CONSTRAINT `termwork_ibfk_1` FOREIGN KEY (`roll_no`) REFERENCES `student` (`roll_no`)
+  CONSTRAINT `sid_fk` FOREIGN KEY (`sid`) REFERENCES `subject` (`sid`) ON DELETE CASCADE,
+  CONSTRAINT `termwork_ibfk_1` FOREIGN KEY (`roll_no`) REFERENCES `student` (`roll_no`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -488,4 +476,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-10-06  7:58:10
+-- Dump completed on 2019-10-13 14:32:57
