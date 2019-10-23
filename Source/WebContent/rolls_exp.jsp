@@ -104,7 +104,7 @@
 													id="<%=resultset1.getInt("roll_no")%>rpp"
 													onchange="spo_value(this.id,'<%=resultset1.getInt("roll_no")%>spo','<%=resultset1.getInt("roll_no")%>total')">
 
-														<option selected disabled><%=resultset1.getInt("rpp")%></option>
+														<option value="<%=resultset1.getInt("rpp")%>" selected><%=resultset1.getInt("rpp")%></option>
 														<option>0</option>
 														<option>1</option>
 														<option>2</option>
@@ -116,7 +116,7 @@
 													class="form-control"
 													id="<%=resultset1.getInt("roll_no")%>spo"
 													onchange="spo_value(this.id,'<%=resultset1.getInt("roll_no")%>rpp','<%=resultset1.getInt("roll_no")%>total')">
-														<option><%=resultset1.getString("spo")%></option>
+														<option value="<%=resultset1.getInt("spo")%>" selected><%=resultset1.getInt("rpp")%></option>
 														<option>0</option>
 														<option>1</option>
 														<option>2</option>
