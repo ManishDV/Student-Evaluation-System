@@ -85,15 +85,15 @@
 					
 				
 				} catch (Exception e) {
-					String error = "Duplicate entry "+roll_no+" for key 'PRIMARY'";
-					if(e.getMessage().equals(error)){
+					String error = "Duplicate entry '"+roll_no+"' for key 'PRIMARY'";
+					String exception = e.getMessage();
+					if(exception.trim().equals(error)){
 						session.setAttribute("error", "Students Already Added");
 						flag=1;
 						break;
 					}
 					else{
-					
-						session.setAttribute("error", "Students Already Added");
+						session.setAttribute("error", exception);
 						flag = 1;
 						break;
 					}
