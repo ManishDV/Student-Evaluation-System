@@ -44,8 +44,8 @@ li:hover {
 </head>
 
 <body onload="makeActive()">
-	<div class="wrapper">
-		<div class="sidebar" data-color="purple" data-background-color="green">
+	<div class="wrapper" >
+		<div class="sidebar" data-color="purple" data-background-color="green" >
 				<!--
 	        Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
 	
@@ -56,7 +56,7 @@ li:hover {
 				<img src="img/pict.png" width="100" height="100"></img>
 					<center>PICT SES</center></a>
 			</div>
-			<div class="sidebar-wrapper" style="height:77%;margin:0px">
+			<div class="sidebar-wrapper" style="height:73%;margin:0px;overflow-x:hidden">
 				<%
 					try {
 						String acc_type = (String) session.getAttribute("type");

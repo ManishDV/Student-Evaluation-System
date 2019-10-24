@@ -35,13 +35,24 @@
     var error = '<%=session.getAttribute("error")%>';
 	
     if(error.trim().length != 0 && error != null && error != " "){
-    	Swal.fire({
-			  type: 'warning',
-			  title: error,
-			  text: '',
-			  confirmButtonColor: 'purple',
-			})
-		
+    	if(error == "Password Is Successfully Updated"){
+    		Swal.fire({
+  			  type: 'success',
+  			  title: error,
+  			  text: '',
+  			  confirmButtonColor: 'purple',
+  			})
+  	
+    	}else{
+    		Swal.fire({
+  			  type: 'warning',
+  			  title: error,
+  			  text: '',
+  			  confirmButtonColor: 'purple',
+  			})
+  			
+    	}
+    	
      <%
         session.setAttribute("error"," ");
         session.setAttribute("user"," ");

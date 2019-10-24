@@ -57,12 +57,24 @@ var a = 2;
     var error = '<%=session.getAttribute("error")%>';
 
 	if (error.trim().length != 0) {
-		 Swal.fire({
-			  type: 'warning',
+		if(error == "Assignment Marks Uploaded Successfully"){ 
+		Swal.fire({
+			  type: 'success',
 			  title: error,
 			  text: '',
 			  confirmButtonColor: 'purple',
 			})
+			
+		}else{
+			Swal.fire({
+				  type: 'warning',
+				  title: error,
+				  text: '',
+				  confirmButtonColor: 'purple',
+				})
+				
+			
+		}	
 			<%
 				session.setAttribute("error"," ");
 			%>

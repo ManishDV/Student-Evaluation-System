@@ -16,11 +16,23 @@
 var a = 3;
 var error = '<%=session.getAttribute("error")%>';
 if(error.trim().length != 0){
-	Swal.fire({
-			type:'warning',
+	
+	if(error == "Termwork Calculated Successfully"){
+		Swal.fire({
+			type:'success',
 			text: error,
 		  confirmButtonColor: 'purple',
 		  });
+		
+	}else{
+		
+		Swal.fire({
+				type:'warning',
+				text: error,
+			  confirmButtonColor: 'purple',
+			  });
+		
+	}
 	<%session.setAttribute("error", " ");%>
 }
 
@@ -207,6 +219,7 @@ if(error.trim().length != 0){
 					ResultSet rs2 = statement2.executeQuery(query8);
 					rs2.next();
 					int sid = rs2.getInt("sid");
+					
 
 					int actualMarksInAssignment = 0;
 					int totalMarksInPractical = assignment_count * 10;
@@ -246,7 +259,7 @@ if(error.trim().length != 0){
 								+ " and sid in (select subject.sid from subject,teacher_teaches_class where teacher_teaches_class.sid = subject.sid and subject.theory = 1);";
 						Statement st2 = con.createStatement();
 						ResultSet utmark = st2.executeQuery(query3);
-
+						
 						while (utmark.next()) {
 							actualUtMarks += (utmark.getInt("ut1") + utmark.getInt("ut2"));
 						}

@@ -33,7 +33,7 @@
 <script src="js/jquery.js"></script>
 <script src="js/bootstrap.js"></script>
 </head>
-<body style="overflow:auto">
+<body style="overflow-y:auto;overflow-x:hidden">
 
 	<%
 	String user = (String)session.getAttribute("user");
