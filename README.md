@@ -1,2 +1,2 @@
 # Student-Evaluation-System
-This repository contains all the work done for the DBMS mini project
+This repository contains Code for Student Evaluation System
