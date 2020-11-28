@@ -19,7 +19,7 @@
 <body>
   <div class="main container-fluid">
     <p class="sign" align="center">Sign in</p>
-    <form class="form1" action="login.jsp" method="post"> 
+    <form class="form1" action="validate.jsp" method="post"> 
       <input class="un " type="text" align="center" placeholder="Username" name="uname" autocomplete="off" required />
       <input class="pass" type="password" align="center" placeholder="Password" name="passwd" autocomplete="off" required />
       <input type="submit" class="submit" value="Login"  />
